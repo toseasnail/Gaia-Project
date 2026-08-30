@@ -146,7 +146,7 @@ export function CentralBoard({
           .filter(([, count]) => count > 0)
           .map(([id, count]) => (
             <span className="chip" key={id}>
-              {FEDERATION_TILES[id] ?? id} ×{count}
+              {FEDERATION_TILES[id] ?? id} ({count} left)
             </span>
           ))}
       </div>
