@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import Engine from "@gaia-project/engine";
+import { Engine } from "./gaia.ts";
 import { nanoid } from "nanoid";
 import { aiMaxBids, emptyBids, resolveBgaAuction, type AuctionBids, type AuctionResult } from "../shared/auction.ts";
 import { remainingFactions, type FactionId } from "../shared/factions.ts";

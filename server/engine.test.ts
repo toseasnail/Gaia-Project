@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import Engine from "@gaia-project/engine";
+import { Engine } from "./gaia.ts";
 import { createRoom, playAiUntilHuman, playMove, submitBids } from "./room.ts";
 import { playHeuristicTurn } from "./heuristic-ai.ts";
 

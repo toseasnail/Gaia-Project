@@ -1,4 +1,4 @@
-import Engine, { Command, Player as PlayerEnum } from "@gaia-project/engine";
+import { Command, Engine, PlayerEnum } from "./gaia.ts";
 import type { AvailableCommand } from "@gaia-project/engine";
 
 type Named = AvailableCommand & { name: string; player: number; data?: any };

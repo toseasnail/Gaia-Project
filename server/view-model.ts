@@ -1,4 +1,4 @@
-import Engine from "@gaia-project/engine";
+import { Engine } from "./gaia.ts";
 import type { GameRoom } from "./room.ts";
 import type { GameView, HexView, PlayerView, PowerView } from "../shared/types.ts";
 import type { FactionId, PlanetType } from "../shared/factions.ts";
