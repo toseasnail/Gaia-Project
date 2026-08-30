@@ -1,0 +1,6 @@
+node_modules
+dist
+.DS_Store
+*.log
+.env
+client/public/sectors/_preview-cuts.png
