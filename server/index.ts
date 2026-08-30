@@ -15,7 +15,6 @@ import {
   submitBids,
 } from "./room.ts";
 import { toGameView } from "./view-model.ts";
-import { randomizeSectors } from "../shared/randomizer.ts";
 
 const app = express();
 app.use(express.json({ limit: "200kb" }));
@@ -40,13 +39,6 @@ app.get("/api/health", (_req, res) => {
 
 app.get("/api/tables", (_req, res) => {
   res.json({ tables: listPublicRooms() });
-});
-
-app.post("/api/randomize", (req, res) => {
-  const playerCount = Number(req.body?.playerCount ?? 4);
-  const seed = String(req.body?.seed ?? `uiqoo-${Date.now()}`);
-  const centerSectorsFixed = req.body?.centerSectorsFixed !== false;
-  res.json(randomizeSectors(playerCount, seed, centerSectorsFixed));
 });
 
 app.post("/api/rooms", (req, res) => {

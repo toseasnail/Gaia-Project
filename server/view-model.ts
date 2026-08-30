@@ -83,6 +83,8 @@ export function toGameView(room: GameRoom, viewerId: string | null): GameView {
         : { area1: 2, area2: 4, area3: 0, gaia: 0, brainstone: seat.faction === "taklons" ? "area1" : null },
       research: data?.research ?? {},
       buildings: data?.buildings ?? {},
+      booster: data?.tiles?.booster ?? null,
+      techs: (data?.tiles?.techs ?? []).map((tile: { tile?: string }) => tile.tile).filter(Boolean),
       passed: Boolean(engine?.passedPlayers?.includes(index)),
       dropped: Boolean(pl?.dropped),
     };

@@ -2,10 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import type { GameView } from "../../shared/types.ts";
 import { connectSocket } from "./api";
 import { Home } from "./pages/Home";
-import { Randomizer } from "./pages/Randomizer";
 import { Table } from "./pages/Table";
 
-type Page = "home" | "randomizer" | "table";
+type Page = "home" | "table";
 
 export function App() {
   const [page, setPage] = useState<Page>("home");
@@ -23,7 +22,6 @@ export function App() {
   }, []);
 
   const title = useMemo(() => {
-    if (page === "randomizer") return "Setup randomizer";
     if (page === "table") return view?.code ? `Table ${view.code}` : "Table";
     return "Gaia Project Online";
   }, [page, view?.code]);
@@ -35,10 +33,7 @@ export function App() {
           <h1>{title}</h1>
           <small>vs AI · or people on the internet · never mixed</small>
         </div>
-        <div className="row">
-          <button onClick={() => setPage("home")}>Lobby</button>
-          <button onClick={() => setPage("randomizer")}>uiqoo randomizer</button>
-        </div>
+        <button onClick={() => setPage("home")}>Lobby</button>
       </header>
       {error ? <p className="error">{error}</p> : null}
       {page === "home" ? (
@@ -50,7 +45,6 @@ export function App() {
           }}
         />
       ) : null}
-      {page === "randomizer" ? <Randomizer /> : null}
       {page === "table" && view ? <Table view={view} setView={setView} onError={setError} /> : null}
     </div>
   );

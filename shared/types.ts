@@ -43,6 +43,8 @@ export type PlayerView = {
   power: PowerView;
   research: Record<string, number>;
   buildings: Record<string, number>;
+  booster: string | null;
+  techs: string[];
   passed: boolean;
   dropped: boolean;
 };

@@ -187,7 +187,7 @@ select {
 
 .game-layout {
   display: grid;
-  grid-template-columns: 280px 1fr 320px;
+  grid-template-columns: 280px minmax(0, 1fr) 340px;
   gap: 0.9rem;
 }
 
@@ -322,9 +322,139 @@ select {
   font-size: 0.75rem;
 }
 
-@media (max-width: 1100px) {
+.central-board h3 {
+  margin: 1rem 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.round-strip,
+.free-techs,
+.booster-grid,
+.action-grid {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.round-strip {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.track-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  text-align: left;
+}
+
+.levels {
+  background: #0b1220;
+  border-radius: 8px;
+  padding: 0.25rem 0.35rem;
+}
+
+.level-row {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.tile-card {
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.78rem;
+  text-align: left;
+}
+
+.tile-card.current-round {
+  border-color: var(--gaia);
+}
+
+.tile-card.final,
+.tile-card.adv {
+  border-color: #6ea8ff;
+}
+
+.tile-card.used {
+  opacity: 0.45;
+}
+
+.tile-kicker {
+  color: var(--mute);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.free-techs,
+.action-grid,
+.booster-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.convert-box {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--mute);
+}
+
+.map-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 0.3rem;
+  vertical-align: -1px;
+  border: 1px solid #fff;
+}
+
+.leg-mine {
+  background: #3d8bfd;
+}
+.leg-ts {
+  background: #ff8a3d;
+}
+.leg-lab {
+  background: #3dcf7a;
+  transform: rotate(45deg);
+}
+.leg-pi {
+  background: #f4c15d;
+  border-radius: 2px;
+}
+.leg-ac {
+  background: #e5484d;
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.leg-gf {
+  background: #9b51e0;
+  border-radius: 50%;
+}
+
+@media (max-width: 1200px) {
   .hero,
-  .game-layout {
+  .game-layout,
+  .research-grid {
     grid-template-columns: 1fr;
   }
 }

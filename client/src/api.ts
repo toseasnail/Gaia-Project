@@ -79,17 +79,6 @@ export async function listTables() {
   return body.tables as Array<{ code: string; seats: number; needed: number }>;
 }
 
-export async function randomize(playerCount: number, centerSectorsFixed: boolean, seed?: string) {
-  const body = await parse(
-    await fetch("/api/randomize", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ playerCount, centerSectorsFixed, seed }),
-    })
-  );
-  return body;
-}
-
 export function connectSocket(onState: (view: GameView) => void): Socket {
   const socket = io({ transports: ["websocket", "polling"] });
   socket.on("connect", () => {

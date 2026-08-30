@@ -6,6 +6,7 @@ import { remainingFactions, type FactionId } from "../shared/factions.ts";
 import { randomizeSectors } from "../shared/randomizer.ts";
 import type { CreateRoomRequest, GameMode, RoomStatus } from "../shared/types.ts";
 import { playHeuristicTurn } from "./heuristic-ai.ts";
+import { applyPlayerMove } from "./turns.ts";
 
 export type Seat = {
   id: string;
@@ -256,7 +257,7 @@ export function playMove(room: GameRoom, seatId: string, move: string) {
   if (room.engine.playerToMove !== seatIndex) throw new Error("It is not your turn");
   const trimmed = move.trim();
   if (!trimmed) throw new Error("Empty move");
-  room.engine.move(trimmed);
+  applyPlayerMove(room, trimmed);
   if (room.engine.ended) room.status = "finished";
   playAiUntilHuman(room);
 }

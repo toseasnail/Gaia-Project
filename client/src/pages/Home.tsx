@@ -15,7 +15,6 @@ export function Home({
   const [aiCount, setAiCount] = useState<1 | 2 | 3>(1);
   const [code, setCode] = useState("");
   const [tables, setTables] = useState<Array<{ code: string; seats: number; needed: number }>>([]);
-  const [centerSectorsFixed, setCenterSectorsFixed] = useState(true);
 
   useEffect(() => {
     listTables()
@@ -34,7 +33,7 @@ export function Home({
         playerCount,
         aiCount: mode === "ai" ? (Math.min(aiCount, maxAi) as 1 | 2 | 3) : undefined,
         honorFederation: mode === "online",
-        centerSectorsFixed,
+        centerSectorsFixed: true,
       };
       onPlay(await createTable(req));
     } catch (error) {
@@ -99,14 +98,6 @@ export function Home({
               </div>
             </label>
           ) : null}
-          <label className="row">
-            <input
-              type="checkbox"
-              checked={centerSectorsFixed}
-              onChange={(e) => setCenterSectorsFixed(e.target.checked)}
-            />
-            Keep sectors 01–04 in the center (uiqoo method)
-          </label>
         </div>
         <div className="row" style={{ marginTop: "1rem" }}>
           <button className="primary" onClick={start}>

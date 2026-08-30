@@ -20,16 +20,13 @@ When Taklons can charge power, the table asks whether the **brainstone** or a no
 - **AI tables** — only legal federations are listed. The AI will not form an illegal one.
 - **People tables** — honor check. Players enter the hexes the table agrees on (`noFedCheck`).
 
-### Map randomizer
-
-Setup follows [uiqoo’s BoardLife randomizer](https://uiqoo.kr/boardgames/gaiaproject/randomizer.html): player count picks the official 7- or 10-sector shape, optional **center sectors 01–04**, random rotations. The photographed 10-sector cluster is split into individual tiles under `client/public/sectors/`.
+Setup uses the same map rules as a typical Gaia randomizer (7- or 10-sector shape, 01–04 in the center, random rotations). That is game setup only — there is no randomizer page in the site.
 
 ## Develop
 
 ```bash
 npm install
 npm test
-npm run extract-sectors
 npm run dev
 ```
 

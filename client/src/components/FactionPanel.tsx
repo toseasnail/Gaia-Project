@@ -1,4 +1,5 @@
 import { FACTION_INFO, type FactionId } from "../../../shared/factions.ts";
+import { TECH_TILES, tileText } from "../../../shared/tiles.ts";
 import type { PlayerView } from "../../../shared/types.ts";
 
 export function FactionPanel({ players, current, you }: { players: PlayerView[]; current: number | null; you: number | null }) {
@@ -58,6 +59,16 @@ export function FactionPanel({ players, current, you }: { players: PlayerView[];
                 </div>
               </div>
             </div>
+            {player.booster ? (
+              <p className="muted" style={{ fontSize: "0.75rem", margin: "0.4rem 0 0" }}>
+                Booster: {tileText("booster", player.booster)}
+              </p>
+            ) : null}
+            {player.techs?.length ? (
+              <p className="muted" style={{ fontSize: "0.75rem", margin: "0.25rem 0 0" }}>
+                Tech: {player.techs.map((id) => TECH_TILES[id] ?? id).join(" · ")}
+              </p>
+            ) : null}
             {player.faction === "taklons" ? (
               <p className="muted" style={{ fontSize: "0.75rem", margin: "0.4rem 0 0" }}>
                 Brainstone is purple <span className="brain">B</span>. When power charges, choose the stone or a

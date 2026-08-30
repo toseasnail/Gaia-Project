@@ -4,9 +4,9 @@ import type { GameView, HexView } from "../../../shared/types.ts";
 import { playMove, submitBids } from "../api";
 import { ActionDock } from "../components/ActionDock";
 import { AuctionPanel } from "../components/AuctionPanel";
+import { CentralBoard } from "../components/CentralBoard";
 import { FactionPanel } from "../components/FactionPanel";
 import { HexMap } from "../components/HexMap";
-import { ResearchBoard } from "../components/ResearchBoard";
 
 export function Table({
   view,
@@ -49,22 +49,29 @@ export function Table({
     }
   }
 
+  function prefix() {
+    return view.players[view.you ?? 0]?.faction ?? `p${(view.you ?? 0) + 1}`;
+  }
+
   function onHex(hex: HexView) {
     const build = view.available.find((cmd) => cmd.name === "build" && cmd.player === view.you);
     const buildings = (build?.data as { buildings?: Array<{ building: string; coordinates: string }> })?.buildings ?? [];
     const match = buildings.find((b) => b.coordinates === hex.coord);
-    if (match) {
-      const prefix = view.players[view.you ?? 0]?.faction ?? `p${(view.you ?? 0) + 1}`;
-      void move(`${prefix} build ${match.building} ${match.coordinates}`);
-    }
+    if (match) void move(`${prefix()} build ${match.building} ${match.coordinates}`);
   }
 
   function onTrack(field: string) {
     const up = view.available.find((cmd) => cmd.name === "up" && cmd.player === view.you);
     const tracks = (up?.data as { tracks?: Array<{ field: string }> })?.tracks ?? [];
     if (!tracks.some((t) => t.field === field)) return;
-    const prefix = view.players[view.you ?? 0]?.faction ?? `p${(view.you ?? 0) + 1}`;
-    void move(`${prefix} up ${field}`);
+    void move(`${prefix()} up ${field}`);
+  }
+
+  function onBoardAction(name: string) {
+    const action = view.available.find((cmd) => cmd.name === "action" && cmd.player === view.you);
+    const acts = (action?.data as { poweracts?: Array<{ name: string }> })?.poweracts ?? [];
+    if (!acts.some((act) => act.name === name)) return;
+    void move(`${prefix()} action ${name}`);
   }
 
   if (view.status === "lobby") {
@@ -86,12 +93,8 @@ export function Table({
     <div className="game-layout">
       <FactionPanel players={view.players} current={view.currentPlayer} you={view.you} />
       <div>
-        <ResearchBoard view={view} onTrack={onTrack} />
-        <HexMap
-          view={view}
-          highlighted={highlighted}
-          onHex={onHex}
-        />
+        <CentralBoard view={view} onTrack={onTrack} onBoardAction={onBoardAction} />
+        <HexMap view={view} highlighted={highlighted} onHex={onHex} />
       </div>
       <ActionDock view={view} onMove={move} />
     </div>
