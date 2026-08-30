@@ -92,9 +92,9 @@ export function Table({
   return (
     <div className="game-layout">
       <FactionPanel players={view.players} current={view.currentPlayer} you={view.you} />
-      <div>
-        <CentralBoard view={view} onTrack={onTrack} onBoardAction={onBoardAction} />
+      <div className="table-main">
         <HexMap view={view} highlighted={highlighted} onHex={onHex} />
+        <CentralBoard view={view} onTrack={onTrack} onBoardAction={onBoardAction} />
       </div>
       <ActionDock view={view} onMove={move} />
     </div>

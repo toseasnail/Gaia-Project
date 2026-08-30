@@ -191,12 +191,20 @@ select {
   gap: 0.9rem;
 }
 
+.table-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
 .map-wrap {
   overflow: auto;
-  background: #05070e;
+  background:
+    radial-gradient(700px 400px at 50% 40%, #163056 0%, transparent 70%),
+    #05070e;
   border: 1px solid var(--line);
   border-radius: 12px;
-  min-height: 620px;
+  min-height: 760px;
 }
 
 .player-card {

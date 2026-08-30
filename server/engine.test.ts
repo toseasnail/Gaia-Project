@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { Engine } from "./gaia.ts";
 import { createRoom, playAiUntilHuman, playMove, submitBids } from "./room.ts";
 import { playHeuristicTurn } from "./heuristic-ai.ts";
+import { toGameView } from "./view-model.ts";
 
 function boot(moves: string[] = ["init 2 engine-test-seed"]): Engine {
   const engine = new Engine(moves, { advancedRules: false, noFedCheck: false });
@@ -45,6 +46,9 @@ describe("Gaia engine wiring", () => {
     submitBids(room, room.seats[0].id, bids as never);
     expect(room.auction?.result?.assignments).toHaveLength(2);
     expect(room.engine).toBeTruthy();
+    const view = toGameView(room, room.seats[0].id);
+    expect(view.sectors.length).toBeGreaterThanOrEqual(7);
+    expect(view.map.some((hex) => hex.sector)).toBe(true);
   });
 
   it("plays a handful of legal heuristic turns without crashing", () => {
