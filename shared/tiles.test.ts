@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { factionArt, sectorArt, tileArt } from "./art.ts";
 import { tileText } from "./tiles.ts";
 
 describe("tile labels", () => {
@@ -11,5 +12,14 @@ describe("tile labels", () => {
     expect(tileText("tech", "tech4")).toMatch(/7 VP/i);
     expect(tileText("fed", "fed1")).toMatch(/12 VP/i);
     expect(tileText("action", "power3")).toMatch(/2 Ore/i);
+  });
+
+  it("maps every printed tile to an artwork path", () => {
+    expect(factionArt("terrans")).toBe("/art/factions/terrans.jpg");
+    expect(sectorArt("5B")).toBe("/sectors/sector-05.png");
+    expect(tileArt("round", "score6")).toBe("/art/tiles/score6.png");
+    expect(tileArt("final", "planetType")).toBe("/art/tiles/final-planetType.png");
+    expect(tileArt("booster", "booster9")).toBe("/art/tiles/booster9.png");
+    expect(tileArt("fed", "fed1")).toBe("/art/tiles/fed1.png");
   });
 });

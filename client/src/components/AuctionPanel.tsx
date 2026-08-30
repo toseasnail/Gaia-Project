@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { factionArt } from "../../../shared/art.ts";
 import { FACTION_INFO, type FactionId } from "../../../shared/factions.ts";
 import type { AuctionBids } from "../../../shared/auction.ts";
 import type { GameView } from "../../../shared/types.ts";
@@ -32,24 +33,24 @@ export function AuctionPanel({
         round-robin resolves automatically. Everyone then receives the highest bid in VP so the winner still
         starts with 10 to spend.
       </p>
-      {preview.map(({ faction, info }) => (
-        <div key={faction} className="row" style={{ margin: "0.45rem 0" }}>
-          <strong style={{ width: 160, color: info.color }}>{info.name}</strong>
-          <span className="muted" style={{ flex: 1 }}>
-            {info.summary}
-          </span>
-          <input
-            type="number"
-            min={0}
-            max={40}
-            disabled={submitted}
-            value={bids[faction] ?? 0}
-            onChange={(e) => setBids({ ...bids, [faction]: Number(e.target.value) })}
-            style={{ width: 80 }}
-          />
-        </div>
-      ))}
-      <div className="row">
+      <div className="auction-grid">
+        {preview.map(({ faction, info }) => (
+          <article key={faction} className="auction-card">
+            <img src={factionArt(faction)} alt={info.name} />
+            <strong style={{ color: info.color }}>{info.name}</strong>
+            <span className="muted">{info.summary}</span>
+            <input
+              type="number"
+              min={0}
+              max={40}
+              disabled={submitted}
+              value={bids[faction] ?? 0}
+              onChange={(e) => setBids({ ...bids, [faction]: Number(e.target.value) })}
+            />
+          </article>
+        ))}
+      </div>
+      <div className="row" style={{ marginTop: "0.8rem" }}>
         <button className="primary" disabled={submitted} onClick={() => onSubmit(bids)}>
           {submitted ? "Bids locked" : "Lock max bids"}
         </button>

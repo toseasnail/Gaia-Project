@@ -34,3 +34,5 @@ npm run dev
 - API / Socket.IO: http://localhost:3001
 
 Rules execution uses the MIT [`@gaia-project/engine`](https://www.npmjs.com/package/@gaia-project/engine).
+
+The table UI uses photographed sector tiles plus original painted faction portraits, scoring tiles, boosters, federation tokens, and research / scoring boards. AI play is a 1-ply search in the style of the Steam digital app (faction strengths, current-round scoring, and final scoring) rather than random legal moves.

@@ -19,6 +19,13 @@ export type HexView = {
   gaiaformer?: boolean;
 };
 
+export type SectorView = {
+  id: string;
+  rotation: number;
+  q: number;
+  r: number;
+};
+
 export type PowerView = {
   area1: number;
   area2: number;
@@ -68,6 +75,7 @@ export type GameView = {
   currentPlayer: number | null;
   you: number | null;
   map: HexView[];
+  sectors: SectorView[];
   players: PlayerView[];
   available: AvailableMoveView[];
   log: string[];

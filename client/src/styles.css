@@ -390,6 +390,158 @@ select {
   opacity: 0.45;
 }
 
+.tile-face {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0;
+  overflow: hidden;
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: left;
+  color: inherit;
+}
+
+.tile-face img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #05070e;
+}
+
+.tile-face.booster img {
+  aspect-ratio: 2 / 5;
+}
+
+.tile-face.action img,
+.tile-face.fed img {
+  aspect-ratio: 1;
+}
+
+.tile-face.round img,
+.tile-face.final img {
+  aspect-ratio: 5 / 4;
+}
+
+.tile-caption {
+  padding: 0.4rem 0.5rem 0.55rem;
+  font-size: 0.74rem;
+}
+
+.tile-face.current {
+  border-color: var(--gaia);
+  box-shadow: 0 0 0 1px var(--gaia);
+}
+
+.tile-face.held {
+  border-color: var(--warn);
+}
+
+.tile-face.used,
+.tile-face.used img {
+  opacity: 0.42;
+}
+
+.tile-face.empty-slot {
+  min-height: 92px;
+  padding: 0.5rem;
+}
+
+.scoring-board,
+.research-shell {
+  margin-top: 0.55rem;
+  border: 1px solid #6b5a3a;
+  border-radius: 14px;
+  background-position: center;
+  background-size: cover;
+  padding: 0.7rem;
+  box-shadow: inset 0 0 40px #0008;
+}
+
+.scoring-board {
+  background-color: #0a101c;
+}
+
+.research-shell {
+  background-color: #12161c;
+}
+
+.round-strip.on-art,
+.research-shell .research-grid {
+  background: #070b14cc;
+  border-radius: 10px;
+  padding: 0.45rem;
+}
+
+.fed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.45rem;
+}
+
+.faction-portrait {
+  height: 118px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  margin-bottom: 0.5rem;
+}
+
+.faction-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.faction-blurb {
+  font-size: 0.72rem;
+  margin: 0.2rem 0 0.35rem;
+}
+
+.auction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.auction-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 0.6rem;
+}
+
+.auction-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.auction-card strong,
+.auction-card .muted,
+.auction-card input {
+  margin: 0 0.65rem;
+}
+
+.art-cmd {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.art-cmd img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 .tile-kicker {
   color: var(--mute);
   font-size: 0.68rem;

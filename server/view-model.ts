@@ -111,6 +111,12 @@ export function toGameView(room: GameRoom, viewerId: string | null): GameView {
     currentPlayer: engine?.playerToMove ?? null,
     you: you === -1 ? null : you,
     map,
+    sectors: (engine?.map?.placement?.sectors ?? []).map((sector: { sector: string; rotation?: number; center?: { q: number; r: number } }) => ({
+      id: String(sector.sector),
+      rotation: sector.rotation ?? 0,
+      q: sector.center?.q ?? 0,
+      r: sector.center?.r ?? 0,
+    })),
     players,
     available,
     log: engine?.moveHistory ?? [],

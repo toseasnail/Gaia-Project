@@ -1,3 +1,4 @@
+import { factionArt } from "../../../shared/art.ts";
 import { FACTION_INFO, type FactionId } from "../../../shared/factions.ts";
 import { TECH_TILES, tileText } from "../../../shared/tiles.ts";
 import type { PlayerView } from "../../../shared/types.ts";
@@ -12,6 +13,11 @@ export function FactionPanel({ players, current, you }: { players: PlayerView[];
             key={player.index}
             className={`player-card ${player.index === you ? "you" : ""} ${player.index === current ? "current" : ""}`}
           >
+            {player.faction ? (
+              <div className="faction-portrait" style={{ borderColor: info?.color }}>
+                <img src={factionArt(player.faction)} alt={info?.name ?? player.faction} />
+              </div>
+            ) : null}
             <div className="row" style={{ justifyContent: "space-between" }}>
               <strong style={{ color: info?.color }}>{info?.name ?? "Unassigned"}</strong>
               <span className="muted">
@@ -20,6 +26,7 @@ export function FactionPanel({ players, current, you }: { players: PlayerView[];
                 {player.passed ? " · passed" : ""}
               </span>
             </div>
+            {info ? <p className="muted faction-blurb">{info.summary}</p> : null}
             <div className="muted" style={{ fontSize: "0.78rem" }}>
               {player.victoryPoints} VP · bid {player.bid} · start {player.startingVp}
             </div>

@@ -1,8 +1,9 @@
+import { sectorArt } from "../../../shared/art.ts";
 import { FACTION_INFO, PLANET_COLORS, type FactionId, type PlanetType } from "../../../shared/factions.ts";
 import { BUILDING_LABELS } from "../../../shared/tiles.ts";
 import type { GameView, HexView } from "../../../shared/types.ts";
 
-const SIZE = 34;
+const SIZE = 36;
 
 function pixel(q: number, r: number) {
   return {
@@ -11,7 +12,7 @@ function pixel(q: number, r: number) {
   };
 }
 
-function hexPath(x: number, y: number, size = SIZE - 1.4) {
+function hexPath(x: number, y: number, size = SIZE - 1.2) {
   const pts = [];
   for (let i = 0; i < 6; i++) {
     const a = ((60 * i - 30) * Math.PI) / 180;
@@ -108,6 +109,23 @@ function StructureMark({
   );
 }
 
+function PlanetOrb({ x, y, planet }: { x: number; y: number; planet: PlanetType }) {
+  const color = PLANET_COLORS[planet];
+  const r = planet === "transdim" ? 10 : 13;
+  return (
+    <g>
+      <defs>
+        <radialGradient id={`p-${planet}-${x}-${y}`} cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#fff" stopOpacity="0.55" />
+          <stop offset="45%" stopColor={color} />
+          <stop offset="100%" stopColor="#071018" />
+        </radialGradient>
+      </defs>
+      <circle cx={x} cy={y} r={r} fill={`url(#p-${planet}-${x}-${y})`} stroke="#071018" strokeWidth="1.1" />
+    </g>
+  );
+}
+
 export function HexMap({
   view,
   highlighted,
@@ -121,14 +139,32 @@ export function HexMap({
     return <div className="map-wrap" />;
   }
   const pts = view.map.map((hex) => pixel(hex.q, hex.r));
-  const minX = Math.min(...pts.map((p) => p.x)) - 48;
-  const minY = Math.min(...pts.map((p) => p.y)) - 48;
-  const maxX = Math.max(...pts.map((p) => p.x)) + 48;
-  const maxY = Math.max(...pts.map((p) => p.y)) + 48;
+  const minX = Math.min(...pts.map((p) => p.x)) - 56;
+  const minY = Math.min(...pts.map((p) => p.y)) - 56;
+  const maxX = Math.max(...pts.map((p) => p.x)) + 56;
+  const maxY = Math.max(...pts.map((p) => p.y)) + 56;
 
   return (
     <div className="map-wrap">
-      <svg viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`} width="100%" height="680">
+      <svg viewBox={`${minX} ${minY} ${maxX - minX} ${maxY - minY}`} width="100%" height="720">
+        {(view.sectors ?? []).map((sector) => {
+          const { x, y } = pixel(sector.q, sector.r);
+          const radius = SIZE * 2.58;
+          const width = radius * Math.sqrt(3);
+          const height = radius * 2;
+          return (
+            <image
+              key={`${sector.id}-${sector.q}-${sector.r}`}
+              href={sectorArt(sector.id)}
+              x={x - width / 2}
+              y={y - height / 2}
+              width={width}
+              height={height}
+              transform={`rotate(${sector.rotation * 60} ${x} ${y})`}
+              opacity="0.92"
+            />
+          );
+        })}
         {view.map.map((hex) => {
           const { x, y } = pixel(hex.q, hex.r);
           const planet = (hex.planet || "empty") as PlanetType;
@@ -137,20 +173,11 @@ export function HexMap({
             <g key={hex.id} onClick={() => onHex(hex)} style={{ cursor: "pointer" }}>
               <polygon
                 points={hexPath(x, y)}
-                fill={active ? "#163528" : "#0b1220"}
-                stroke={hex.federations.length ? "#f4c15d" : active ? "#3dcf7a" : "#2a3854"}
-                strokeWidth={hex.federations.length ? 2.6 : 1.1}
+                fill={active ? "#16352899" : "#0b122033"}
+                stroke={hex.federations.length ? "#f4c15d" : active ? "#3dcf7a" : "#8fb4ff55"}
+                strokeWidth={hex.federations.length ? 2.6 : 1.05}
               />
-              {planet !== "empty" ? (
-                <circle
-                  cx={x}
-                  cy={y}
-                  r={planet === "transdim" ? 9 : 12}
-                  fill={PLANET_COLORS[planet]}
-                  stroke="#071018"
-                  strokeWidth="1.2"
-                />
-              ) : null}
+              {planet !== "empty" ? <PlanetOrb x={x} y={y} planet={planet} /> : null}
               {hex.building && hex.player !== undefined ? (
                 <StructureMark x={x} y={y} building={hex.building} color={playerColor(view, hex.player)} />
               ) : null}

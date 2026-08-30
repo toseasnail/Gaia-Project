@@ -55,9 +55,10 @@ export function Home({
       <section className="panel">
         <h2>Open a table</h2>
         <p className="muted">
-          Play the full Gaia Project rules: modular map, research, power cycle, and federations. Taklons
-          choose whether the brainstone or a normal token is charged. AI tables validate federations.
-          People-only tables use honor check, like sitting around a real board.
+          Play the full Gaia Project rules on photographed sector tiles, painted faction boards, and
+          scoring / research boards. Taklons choose whether the brainstone or a normal token is charged.
+          AI tables validate federations. People-only tables use honor check, like sitting around a real
+          board.
         </p>
         <label className="muted">Callsign</label>
         <div className="row">

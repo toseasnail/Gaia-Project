@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { tileArt } from "../../../shared/art.ts";
 import {
   BUILDING_LABELS,
   FOLLOW_UP_COMMANDS,
@@ -163,7 +164,8 @@ function CommandBlock({
         <div className="muted">Legal federations</div>
         {(data.federations ?? []).map((fed) =>
           (data.tiles ?? []).slice(0, 3).map((tile) => (
-            <button key={fed.hexes + tile} className="cmd" onClick={() => onSend(`federation ${fed.hexes} ${tile}`)}>
+            <button key={fed.hexes + tile} className="cmd art-cmd" onClick={() => onSend(`federation ${fed.hexes} ${tile}`)}>
+              <img src={tileArt("fed", tile)} alt="" />
               Connect {fed.hexes} · take {tileText("fed", tile)}
             </button>
           ))
@@ -201,7 +203,8 @@ function CommandBlock({
       <div>
         <div className="muted">{cmd.name === "pass" ? "Pass and take a booster" : "Draft a round booster"}</div>
         {boosters.map((b) => (
-          <button key={b} className="cmd" onClick={() => onSend(`${cmd.name} ${b}`)}>
+          <button key={b} className="cmd art-cmd" onClick={() => onSend(`${cmd.name} ${b}`)}>
+            <img src={tileArt("booster", b)} alt="" />
             {tileText("booster", b)}
           </button>
         ))}
@@ -213,7 +216,8 @@ function CommandBlock({
     return (
       <div className="row">
         {tiles.map((t) => (
-          <button key={t.pos} className="cmd" onClick={() => onSend(`${cmd.name} ${t.pos}`)}>
+          <button key={t.pos} className="cmd art-cmd" onClick={() => onSend(`${cmd.name} ${t.pos}`)}>
+            {t.tile ? <img src={tileArt("tech", t.tile)} alt="" /> : null}
             {t.tile ? TECH_TILES[t.tile] ?? t.tile : t.pos}
           </button>
         ))}
